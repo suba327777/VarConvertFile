@@ -83,3 +83,21 @@ fn main() {
     let args = ConvertArgs::parse();
     convert_file_content(args);
 }
+
+#[cfg(test)]
+mod test {
+    use crate::camel_to_snake;
+    use crate::snake_to_camel;
+
+    #[test]
+    fn test_snake_to_camel() {
+        assert_eq!(camel_to_snake("camelCase"), "camel_case");
+        assert_eq!(camel_to_snake("snake_case"), "snake_case");
+    }
+
+    #[test]
+    fn test_camel_to_snake() {
+        assert_eq!(snake_to_camel("snake_case"), "snakeCase");
+        assert_eq!(snake_to_camel("snakeCase"), "snakeCase");
+    }
+}
