@@ -1,4 +1,3 @@
-mod case;
 use clap::{Parser, ValueEnum};
 use std::fs::{read_to_string, write};
 
