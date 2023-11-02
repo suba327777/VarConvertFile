@@ -1,8 +1,9 @@
 mod case;
 use clap::{Parser, ValueEnum};
+use std::fs::{read_to_string, write};
 
 #[derive(Debug, Parser)]
-pub struct ConvertArgs {
+struct ConvertArgs {
     case: Case,
     path: String,
 }
@@ -32,18 +33,34 @@ fn snake_to_camel(s: &str) -> String {
     result
 }
 
-fn run(state: ConvertArgs) {
-    match state.case {
-        Case::Camel => {
-            println!("{:?}", snake_to_camel("snake_case"));
+//ファイルの中身を１行ずつ読み込む関数
+fn convert_file_content(state: ConvertArgs) {
+    match read_to_string(&state.path) {
+        Ok(content) => {
+            let converted_content = content
+                .lines()
+                .map(|line| match state.case {
+                    Case::Camel => snake_to_camel(line),
+                    Case::Snake => snake_to_camel(line),
+                })
+                .collect::<Vec<String>>()
+                .join("\n");
+
+            if let Err(e) = write(&state.path, converted_content) {
+                println!("Failed {}", e)
+            } else {
+                println!("File success fully writtern!!!!!");
+            }
         }
-        Case::Snake => {
-            println!("snake")
+        Err(e) => {
+            println!("{}", e)
         }
     }
 }
 
+// fn write_file()
+
 fn main() {
     let args = ConvertArgs::parse();
-    run(args)
+    convert_file_content(args);
 }
