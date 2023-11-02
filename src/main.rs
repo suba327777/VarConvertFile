@@ -32,7 +32,6 @@ fn snake_to_camel(s: &str) -> String {
     }
     result
 }
-
 //ファイルの中身を１行ずつ読み込む関数
 fn convert_file_content(state: ConvertArgs) {
     match read_to_string(&state.path) {
@@ -46,11 +45,7 @@ fn convert_file_content(state: ConvertArgs) {
                 .collect::<Vec<String>>()
                 .join("\n");
 
-            if let Err(e) = write(&state.path, converted_content) {
-                println!("Failed {}", e)
-            } else {
-                println!("File success fully writtern!!!!!");
-            }
+            write_file(&state.path, converted_content);
         }
         Err(e) => {
             println!("{}", e)
@@ -58,7 +53,13 @@ fn convert_file_content(state: ConvertArgs) {
     }
 }
 
-// fn write_file()
+fn write_file(path: &str, converted_content: String) {
+    if let Err(e) = write(path, converted_content) {
+        println!("Failed {}", e)
+    } else {
+        println!("File success fully writtern!!!!!");
+    }
+}
 
 fn main() {
     let args = ConvertArgs::parse();
