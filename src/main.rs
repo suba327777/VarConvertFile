@@ -91,13 +91,13 @@ mod test {
 
     #[test]
     fn test_snake_to_camel() {
-        assert_eq!(camel_to_snake("camelCase"), "camel_case");
-        assert_eq!(camel_to_snake("snake_case"), "snake_case");
+        assert_eq!(snake_to_camel("snake_case"), "snakeCase");
+        assert_eq!(snake_to_camel("snakeCase"), "snakeCase");
     }
 
     #[test]
     fn test_camel_to_snake() {
-        assert_eq!(snake_to_camel("snake_case"), "snakeCase");
-        assert_eq!(snake_to_camel("snakeCase"), "snakeCase");
+        assert_eq!(camel_to_snake("camelCase"), "camel_case");
+        assert_eq!(camel_to_snake("snake_case"), "snake_case");
     }
 }
