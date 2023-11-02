@@ -38,7 +38,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
-          cargo install cargo-tarpulin
+          cargo install cargo-tarpaulin
           cargo install --out Xml
           bash <(curl -s https://codecov.io/bash) -X gcov -t $CODECOV_TOKEN
 
