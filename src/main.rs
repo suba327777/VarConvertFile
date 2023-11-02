@@ -1,3 +1,18 @@
+mod case;
+use clap::{Parser, ValueEnum};
+
+#[derive(Debug, Parser)]
+pub struct ConvertArgs {
+    case: Case,
+    path: String,
+}
+
+#[derive(Debug, Clone, ValueEnum)]
+enum Case {
+    Camel,
+    Snake,
+}
+
 fn snake_to_camel(s: &str) -> String {
     let mut result = String::new();
     let mut capitalize_next = false;
@@ -14,11 +29,21 @@ fn snake_to_camel(s: &str) -> String {
             capitalize_next = false;
         }
     }
-
     result
 }
 
+fn run(state: ConvertArgs) {
+    match state.case {
+        Case::Camel => {
+            println!("{:?}", snake_to_camel("snake_case"));
+        }
+        Case::Snake => {
+            println!("snake")
+        }
+    }
+}
+
 fn main() {
-    let test = "snake_case";
-    println!("{:?}", snake_to_camel(test));
+    let args = ConvertArgs::parse();
+    run(args)
 }
